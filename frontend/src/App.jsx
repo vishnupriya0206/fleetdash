@@ -94,14 +94,7 @@ export default function App() {
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
 
-    return () => {
-      cancelled = true;
-      socket.off('telemetry:batch', onBinaryBatch);
-      socket.off('geofence:alert', onAlert);
-      socket.off('registry:update', onRegistryUpdate);
-      socket.off('connect', onConnect);
-      socket.off('disconnect', onDisconnect);
-    };
+    
   }, [applyPoints]);
 
   // Periodically re-derive status so vehicles age into "offline"
