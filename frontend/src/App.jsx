@@ -11,7 +11,7 @@ import { socket, API_URL } from './socket.js';
 import { decodeBinaryBatch } from './utils/decodeBinary.js';
 import { haversineKm } from './utils/geo.js';
 
-const OFFLINE_AFTER_MS = 30_000; // no update for 30s -> mark offline
+const OFFLINE_AFTER_MS = 30_000;
 const MOVING_SPEED_KMPH = 8;
 
 export default function App() {
@@ -67,7 +67,6 @@ export default function App() {
         applyPoints(vehRes.vehicles || []);
         setAlerts(alertRes.alerts || []);
       } catch (err) {
-        // Backend may not be running yet — dashboard still renders empty.
         console.warn('Bootstrap fetch failed:', err.message);
       }
     }
@@ -93,7 +92,14 @@ export default function App() {
     socket.on('registry:update', onRegistryUpdate);
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
-
+     return () => {
+      cancelled = true;
+      socket.off('telemetry:batch', onBinaryBatch);
+      socket.off('geofence:alert', onAlert);
+      socket.off('registry:update', onRegistryUpdate);
+      socket.off('connect', onConnect);
+      socket.off('disconnect', onDisconnect);
+    };
     
   }, [applyPoints]);
 
