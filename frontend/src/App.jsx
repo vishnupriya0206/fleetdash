@@ -6,6 +6,7 @@ import AlertsPanel from './components/AlertsPanel.jsx';
 import VehicleList from './components/VehicleList.jsx';
 import StatsStrip from './components/StatsStrip.jsx';
 import FooterBar from './components/FooterBar.jsx';
+import VehiclePage from "./pages/VehiclePage.jsx";
 import { socket, API_URL } from './socket.js';
 import { decodeBinaryBatch } from './utils/decodeBinary.js';
 import { haversineKm } from './utils/geo.js';
