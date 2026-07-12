@@ -8,7 +8,7 @@ const STATUS_COLOR = {
   offline: '#ef4444',
 };
 
-export default function VehicleList({ vehicles }) {
+export default function VehicleList({ vehicles, onSelectVehicle }) {
   return (
     <div className="panel vehicle-panel">
       <div className="panel-header">
@@ -22,8 +22,13 @@ export default function VehicleList({ vehicles }) {
         {vehicles.length === 0 && (
           <div style={{ color: 'var(--text-faint)', fontSize: 12 }}>Waiting for telemetry…</div>
         )}
-        {vehicles.map((v) => (
-          <div key={v.vehicleId} className="vehicle-row">
+       {vehicles.map((v) => (
+<div
+key={v.vehicleId}
+className="vehicle-row"
+onClick={() => onSelectVehicle && onSelectVehicle(v)}
+style={{ cursor: 'pointer' }}
+>
             <span className="vehicle-dot" style={{ background: STATUS_COLOR[v.status] }} />
             <div className="vehicle-info">
               <div className="vehicle-id">{v.vehicleId}</div>

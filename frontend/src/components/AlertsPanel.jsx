@@ -12,7 +12,7 @@ function describe(alert) {
   return alert.zoneName || 'Status changed';
 }
 
-export default function AlertsPanel({ alerts }) {
+export default function AlertsPanel({ alerts, onSelectAlert }) {
   return (
     <div className="panel alerts-panel">
       <div className="panel-header">
@@ -27,8 +27,13 @@ export default function AlertsPanel({ alerts }) {
         {alerts.length === 0 && (
           <div style={{ color: 'var(--text-faint)', fontSize: 12 }}>No alerts yet.</div>
         )}
-        {alerts.slice(0, 6).map((a, i) => (
-          <div key={i} className={`alert-card type-${a.type}`}>
+       {alerts.slice(0, 6).map((a, i) => (
+<div
+key={i}
+className={`alert-card type-${a.type}`}
+onClick={() => onSelectAlert && onSelectAlert(a)}
+style={{ cursor: 'pointer' }}
+>
             <div className="alert-top">
               <span className="alert-title">Vehicle {a.vehicleId}</span>
               <span className="alert-time">{timeLabel(a.at)}</span>

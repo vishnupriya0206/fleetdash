@@ -6,7 +6,10 @@ import AlertsPanel from './components/AlertsPanel.jsx';
 import VehicleList from './components/VehicleList.jsx';
 import StatsStrip from './components/StatsStrip.jsx';
 import FooterBar from './components/FooterBar.jsx';
-import VehiclePage from "./pages/VehiclePage.jsx";
+import VehicleDetailModal from './components/VehicleDetailModal.jsx';
+import AlertDetailModal from './components/AlertDetailModal.jsx';
+import ReportsView from './components/ReportsView.jsx';
+import SettingsView from './components/SettingsView.jsx';
 import { socket, API_URL } from './socket.js';
 import { decodeBinaryBatch } from './utils/decodeBinary.js';
 import { haversineKm } from './utils/geo.js';
@@ -18,7 +21,9 @@ export default function App() {
   const [vehicles, setVehicles] = useState({}); // vehicleId -> point+status
   const [alerts, setAlerts] = useState([]);
   const [connected, setConnected] = useState(socket.connected);
-  const [activeNav, setActiveNav] = useState('map');
+ const [activeNav, setActiveNav] = useState('map');
+const [selectedVehicle, setSelectedVehicle] = useState(null);
+const [selectedAlert, setSelectedAlert] = useState(null);
 
   const registryRef = useRef(new Map()); // numericId -> vehicleId
   const distanceRef = useRef(0); // accumulated km, demo "distance today"
@@ -137,24 +142,39 @@ export default function App() {
       />
 
       <div className="body-row">
-        <Sidebar active={activeNav} onSelect={setActiveNav} />
-
-        <div className="main-columns">
-          <MapView vehicles={vehicleArr} />
-
-          <div className="right-col">
-            <AlertsPanel alerts={alerts} />
-            <VehicleList vehicles={vehicleArr} />
-            <StatsStrip
-              distanceKm={distanceRef.current}
-              avgSpeed={avgSpeed}
-              activeSeconds={activeSeconds}
-            />
-          </div>
-        </div>
-      </div>
-
-      <FooterBar connected={connected} />
-    </div>
-  );
+<Sidebar active={activeNav} onSelect={setActiveNav} />
+{activeNav === 'reports' ? (
+<ReportsView
+vehicles={vehicleArr}
+distanceKm={distanceRef.current}
+avgSpeed={avgSpeed}
+activeSeconds={activeSeconds}
+alerts={alerts}
+/>
+) : activeNav === 'settings' ? (
+<SettingsView />
+) : (
+<div className="main-columns">
+<MapView vehicles={vehicleArr} />
+<div className="right-col">
+<AlertsPanel alerts={alerts} onSelectAlert={setSelectedAlert} />
+<VehicleList vehicles={vehicleArr} onSelectVehicle={setSelectedVehicle} />
+<StatsStrip
+distanceKm={distanceRef.current}
+avgSpeed={avgSpeed}
+activeSeconds={activeSeconds}
+/>
+</div>
+</div>
+)}
+</div>
+<FooterBar connected={connected} />
+{selectedVehicle && (
+<VehicleDetailModal vehicle={selectedVehicle} onClose={() => setSelectedVehicle(null)} />
+)}
+{selectedAlert && (
+<AlertDetailModal alert={selectedAlert} onClose={() => setSelectedAlert(null)} />
+)}
+</div>
+);
 }
