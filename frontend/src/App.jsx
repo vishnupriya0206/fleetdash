@@ -53,7 +53,6 @@ const [selectedAlert, setSelectedAlert] = useState(null);
     [deriveStatus]
   );
 
-  // ---------- Bootstrap from REST, then attach socket listeners ----------
   useEffect(() => {
     let cancelled = false;
 
@@ -108,8 +107,7 @@ const [selectedAlert, setSelectedAlert] = useState(null);
     
   }, [applyPoints]);
 
-  // Periodically re-derive status so vehicles age into "offline"
-  // even if no new point arrives, and tick the active-time clock.
+  
   useEffect(() => {
     const t = setInterval(() => {
       setVehicles((prev) => {
@@ -169,12 +167,7 @@ activeSeconds={activeSeconds}
 )}
 </div>
 <FooterBar connected={connected} />
-{selectedVehicle && (
-<VehicleDetailModal vehicle={selectedVehicle} onClose={() => setSelectedVehicle(null)} />
-)}
-{selectedAlert && (
-<AlertDetailModal alert={selectedAlert} onClose={() => setSelectedAlert(null)} />
-)}
+
 </div>
 );
 }

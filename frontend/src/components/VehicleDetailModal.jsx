@@ -2,8 +2,6 @@ import React from 'react';
 import Modal from './Modal.jsx';
 import { Truck } from 'lucide-react';
 import { nearestCity } from '../utils/nearestCity';
-// Deterministic mock generator so each vehicle always shows the same
-// driver / plate / fuel value instead of a new random one on every render.
 function seededValue(seedStr, min, max) {
 let hash = 0;
 for (let i = 0; i < seedStr.length; i++) {
