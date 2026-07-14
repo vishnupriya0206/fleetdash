@@ -167,7 +167,12 @@ activeSeconds={activeSeconds}
 )}
 </div>
 <FooterBar connected={connected} />
-
+{selectedVehicle && (
+<VehicleDetailModal vehicle={selectedVehicle} onClose={() => setSelectedVehicle(null)} />
+)}
+{selectedAlert && (
+<AlertDetailModal alert={selectedAlert} onClose={() => setSelectedAlert(null)} />
+)}
 </div>
 );
 }

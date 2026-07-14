@@ -655,7 +655,7 @@ font-size: 13px;
 color: var(--text);
 margin: 0 0 14px;
 }
-/* ---------- Reports view ---------- */
+
 .reports-view { flex: 1; padding: 20px; overflow-y: auto; }
 .reports-tabs {
 display: flex;

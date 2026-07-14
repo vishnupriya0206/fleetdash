@@ -55,9 +55,7 @@ return (
 </div>
 </div>
 <p className="modal-note">
-Low Fuel, Maintenance Due, and Vehicle Offline are ready to render here. The backend
-geofence engine currently only emits ENTER / EXIT / SPEED events (see geofence.js) -
-hook up those extra event sources server-side when you're ready to trigger them.
+Low Fuel, Maintenance Due, and Vehicle Offline are ready to render here. 
 </p>
 </Modal>
 );

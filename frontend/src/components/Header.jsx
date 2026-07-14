@@ -26,7 +26,7 @@ export default function Header({ totalVehicles, online, moving, alertCount }) {
 
       <div className="header-stats">
         <div className="stat-chip">
-          <span className="stat-dot" style={{ background: '#3b82f6' }} />
+          <span className="stat-dot" style={{ background: '#3975d6' }} />
           <div>
             <span className="stat-label">Total Vehicles</span>
             <span className="stat-value">{totalVehicles}</span>
