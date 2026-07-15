@@ -27,13 +27,8 @@ export default function AlertsPanel({ alerts, onSelectAlert }) {
         {alerts.length === 0 && (
           <div style={{ color: 'var(--text-faint)', fontSize: 12 }}>No alerts yet.</div>
         )}
-       {alerts.slice(0, 6).map((a, i) => (
-<div
-key={i}
-className={`alert-card type-${a.type}`}
-onClick={() => onSelectAlert && onSelectAlert(a)}
-style={{ cursor: 'pointer' }}
->
+{alerts.slice(0, 6).map((a, i) => (
+<div key={i} className={`alert-card type-${a.type}`}>
             <div className="alert-top">
               <span className="alert-title">Vehicle {a.vehicleId}</span>
               <span className="alert-time">{timeLabel(a.at)}</span>

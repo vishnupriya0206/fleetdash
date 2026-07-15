@@ -9,8 +9,7 @@ const STATUS_COLOR = {
   offline: '#ef4444',
 };
 
-// India's rough geographic center + a zoom level that keeps the
-// whole country (and a bit of the neighbourhood) in frame.
+
 const INDIA_CENTER = [22.9734, 78.6569];
 const INDIA_ZOOM = 5;
 
