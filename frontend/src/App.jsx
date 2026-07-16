@@ -18,15 +18,15 @@ const OFFLINE_AFTER_MS = 30_000;
 const MOVING_SPEED_KMPH = 8;
 
 export default function App() {
-  const [vehicles, setVehicles] = useState({}); // vehicleId -> point+status
+  const [vehicles, setVehicles] = useState({}); 
   const [alerts, setAlerts] = useState([]);
   const [connected, setConnected] = useState(socket.connected);
  const [activeNav, setActiveNav] = useState('map');
 const [selectedVehicle, setSelectedVehicle] = useState(null);
 const [selectedAlert, setSelectedAlert] = useState(null);
 
-  const registryRef = useRef(new Map()); // numericId -> vehicleId
-  const distanceRef = useRef(0); // accumulated km, demo "distance today"
+  const registryRef = useRef(new Map()); 
+  const distanceRef = useRef(0); 
   const mountTimeRef = useRef(Date.now());
   const [activeSeconds, setActiveSeconds] = useState(0);
 

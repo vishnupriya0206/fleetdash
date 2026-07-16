@@ -65,4 +65,3 @@ for exact numbers.
 </div>
 );
 }
-5
