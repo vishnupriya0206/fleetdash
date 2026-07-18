@@ -139,32 +139,52 @@ const [selectedAlert, setSelectedAlert] = useState(null);
         alertCount={alerts.length}
       />
 
-      <div className="body-row">
-<Sidebar active={activeNav} onSelect={setActiveNav} />
-{activeNav === 'reports' ? (
-<ReportsView
-vehicles={vehicleArr}
-distanceKm={distanceRef.current}
-avgSpeed={avgSpeed}
-activeSeconds={activeSeconds}
-alerts={alerts}
-/>
-) : activeNav === 'settings' ? (
-<SettingsView />
-) : (
-<div className="main-columns">
-<MapView vehicles={vehicleArr} />
-<div className="right-col">
-<AlertsPanel alerts={alerts} onSelectAlert={setSelectedAlert} />
-<VehicleList vehicles={vehicleArr} onSelectVehicle={setSelectedVehicle} />
-<StatsStrip
-distanceKm={distanceRef.current}
-avgSpeed={avgSpeed}
-activeSeconds={activeSeconds}
-/>
-</div>
-</div>
-)}
+     <div className="body-row">
+  <Sidebar active={activeNav} onSelect={setActiveNav} />
+
+  {activeNav === "reports" ? (
+    <ReportsView
+      vehicles={vehicleArr}
+      distanceKm={distanceRef.current}
+      avgSpeed={avgSpeed}
+      activeSeconds={activeSeconds}
+      alerts={alerts}
+    />
+  ) : activeNav === "settings" ? (
+    <SettingsView />
+  ) : activeNav === "vehicles" ? (
+    <VehicleList
+      vehicles={vehicleArr}
+      onSelectVehicle={setSelectedVehicle}
+    />
+  ) : activeNav === "alerts" ? (
+    <AlertsPanel
+      alerts={alerts}
+      onSelectAlert={setSelectedAlert}
+    />
+  ) : (
+    <div className="main-columns">
+      <MapView vehicles={vehicleArr} />
+
+      <div className="right-col">
+        <AlertsPanel
+          alerts={alerts}
+          onSelectAlert={setSelectedAlert}
+        />
+
+        <VehicleList
+          vehicles={vehicleArr}
+          onSelectVehicle={setSelectedVehicle}
+        />
+
+        <StatsStrip
+          distanceKm={distanceRef.current}
+          avgSpeed={avgSpeed}
+          activeSeconds={activeSeconds}
+        />
+      </div>
+    </div>
+  )}
 </div>
 <FooterBar connected={connected} />
 {selectedVehicle && (
