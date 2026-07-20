@@ -1,8 +1,5 @@
 
 const turf = require('@turf/turf');
-
-// In production this would be loaded from MongoDB. Kept in-memory
-// here for clarity — see README for the Mongoose schema.
 function box(id, name, [minLng, minLat, maxLng, maxLat]) {
   return {
     id,
@@ -47,7 +44,7 @@ function checkBreaches(point) {
     vehicleZoneState.set(key, isInside);
   }
 
-  return events; // empty array if nothing changed
+  return events; 
 }
 
 module.exports = { checkBreaches, geofences };

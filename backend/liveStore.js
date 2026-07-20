@@ -1,8 +1,8 @@
 
 const MAX_ALERTS = 50;
 
-const latestByVehicle = new Map(); // vehicleId -> point
-const recentAlerts = []; // newest first
+const latestByVehicle = new Map(); 
+const recentAlerts = []; 
 
 function recordPoint(point) {
   latestByVehicle.set(point.vehicleId, point);
