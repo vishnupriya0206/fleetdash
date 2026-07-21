@@ -1,12 +1,9 @@
 
 
-const idToVehicle = new Map(); // numericId -> vehicleId
-const vehicleToId = new Map(); // vehicleId -> numericId
+const idToVehicle = new Map(); 
+const vehicleToId = new Map(); 
 let nextId = 1;
 
-/** Returns the numeric id for a vehicleId, assigning one if new.
- *  Returns { numericId, isNew } so callers can decide whether to
- *  broadcast a registry update. */
 function getOrCreateId(vehicleId) {
   let numericId = vehicleToId.get(vehicleId);
   if (numericId !== undefined) {

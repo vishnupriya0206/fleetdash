@@ -1,5 +1,5 @@
 
-const MAX_ALERTS = 50;
+const MAX_ALERTS = 60;
 
 const latestByVehicle = new Map(); 
 const recentAlerts = []; 
