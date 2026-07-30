@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { List, Wifi } from 'lucide-react';
 import { nearestCity } from '../utils/nearestCity';
 
@@ -8,9 +8,18 @@ const STATUS_COLOR = {
   offline: '#ef4444',
 };
 
-export default function VehicleList({ vehicles, onSelectVehicle }) {
-  return (
-    <div className="panel vehicle-panel">
+export default function VehicleList({ vehicles, onSelectVehicle, popHighlight }) {
+const panelRef = useRef(null);
+useEffect(() => {
+if (popHighlight && panelRef.current) {
+panelRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+}, [popHighlight]);
+return (
+<div
+ref={panelRef}
+className={`panel vehicle-panel${popHighlight ? ' panel-pop' : ''}`}
+>
       <div className="panel-header">
         <div className="panel-title">
           <List size={16} color="#3b82f6" />

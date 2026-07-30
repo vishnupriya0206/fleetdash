@@ -21,9 +21,10 @@ export default function App() {
   const [vehicles, setVehicles] = useState({}); 
   const [alerts, setAlerts] = useState([]);
   const [connected, setConnected] = useState(socket.connected);
- const [activeNav, setActiveNav] = useState('map');
+const [activeNav, setActiveNav] = useState('map');
 const [selectedVehicle, setSelectedVehicle] = useState(null);
 const [selectedAlert, setSelectedAlert] = useState(null);
+const [highlightPanel, setHighlightPanel] = useState(null); // 'vehicles' | 'alerts' | null
 
   const registryRef = useRef(new Map()); 
   const distanceRef = useRef(0); 
@@ -127,8 +128,15 @@ const [selectedAlert, setSelectedAlert] = useState(null);
   const onlineCount = vehicleArr.filter((v) => v.status !== 'offline').length;
   const movingCount = vehicleArr.filter((v) => v.status === 'moving').length;
   const avgSpeed = vehicleArr.length
-    ? vehicleArr.reduce((sum, v) => sum + v.speed, 0) / vehicleArr.length
-    : 0;
+? vehicleArr.reduce((sum, v) => sum + v.speed, 0) / vehicleArr.length
+: 0;
+function handleNavSelect(key) {
+setActiveNav(key);
+if (key === 'vehicles' || key === 'alerts') {
+setHighlightPanel(key);
+setTimeout(() => setHighlightPanel(null), 700);
+}
+}
 
   return (
     <div className="app-shell">
@@ -140,7 +148,7 @@ const [selectedAlert, setSelectedAlert] = useState(null);
       />
 
     <div className="body-row">
-<Sidebar active={activeNav} onSelect={setActiveNav} />
+<Sidebar active={activeNav} onSelect={handleNavSelect} />
 {activeNav === 'reports' ? (
 <ReportsView
 vehicles={vehicleArr}
@@ -155,8 +163,15 @@ alerts={alerts}
 <div className="main-columns">
 <MapView vehicles={vehicleArr} />
 <div className="right-col">
-<AlertsPanel alerts={alerts} onSelectAlert={setSelectedAlert} />
-<VehicleList vehicles={vehicleArr} onSelectVehicle={setSelectedVehicle} />
+<AlertsPanel
+alerts={alerts}
+onSelectAlert={setSelectedAlert}
+popHighlight={highlightPanel === 'alerts'}
+/>
+<VehicleList
+vehicles={vehicleArr}
+onSelectVehicle={setSelectedVehicle}
+popHighlight={highlightPanel === 'vehicles'}/>
 <StatsStrip
 distanceKm={distanceRef.current}
 avgSpeed={avgSpeed}

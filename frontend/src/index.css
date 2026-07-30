@@ -734,3 +734,14 @@ font-weight: 600;
 cursor: pointer;
 }
 .settings-saved-msg { margin-left: 12px; color: var(--green); font-size: 12.5px; }
+/* ---------- Sidebar-to-panel pop highlight ---------- */
+.panel-pop {
+animation: panelPop 0.6s ease-out;
+z-index: 10;
+}
+@keyframes panelPop {
+0% { transform: scale(1); box-shadow: 0 0 0 rgba(59, 130, 246, 0); }
+30% { transform: scale(1.03); box-shadow: 0 0 24px rgba(59, 130, 246, 0.55);
+border-color: rgba(59, 130, 246, 0.6); }
+100% { transform: scale(1); box-shadow: 0 0 0 rgba(59, 130, 246, 0); }
+}

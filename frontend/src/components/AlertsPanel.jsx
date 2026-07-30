@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { AlertTriangle, Filter } from 'lucide-react';
-
 function timeLabel(ts) {
   return new Date(ts).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
 }
@@ -12,9 +11,18 @@ function describe(alert) {
   return alert.zoneName || 'Status changed';
 }
 
-export default function AlertsPanel({ alerts, onSelectAlert }) {
-  return (
-    <div className="panel alerts-panel">
+export default function AlertsPanel({ alerts, onSelectAlert, popHighlight }) {
+const panelRef = useRef(null);
+useEffect(() => {
+if (popHighlight && panelRef.current) {
+panelRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+}, [popHighlight]);
+return (
+<div
+ref={panelRef}
+className={`panel alerts-panel${popHighlight ? ' panel-pop' : ''}`}
+>
       <div className="panel-header">
         <div className="panel-title">
           <AlertTriangle size={16} color="#ef4444" />
